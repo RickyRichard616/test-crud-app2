@@ -28,7 +28,7 @@ def modificar_producto():
     cursor = conn.cursor()
     cursor.execute(consulta)
     conn.commit()
-    cursor.execute("SELECT * FROM productos")
+    cursor.execute("SELECT * FROM producto")
     resultados = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -37,14 +37,15 @@ def modificar_producto():
 @app.route("/api/eliminar", methods=["DELETE"])
 def eliminar_producto():
     identificador = request.args.get("id")
-    consulta = "DELETE FROM productos WHERE id='"+str(identificador)+"'"
+    consulta = "DELETE FROM producto WHERE id='"+str(identificador)+"'"
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute(consulta)
     conn.commit()
-    cursor.execute("SELECT * FROM productos")
+    cursor.execute("SELECT * FROM producto")
     resultados = cursor.fetchall()
     cursor.close()
     conn.close()
     return jsonify(resultados)
+
 
