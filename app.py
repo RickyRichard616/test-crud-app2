@@ -1,14 +1,17 @@
 from flask import Flask, request, jsonify
+import os
 import mysql.connector
 
 app = Flask(__name__)
 
 def conectar():
     return mysql.connector.connect(
-        host="localhost",
-        user="test",
-        password="test",
-        database="test_db"
+        host=os.environ.get("DB_HOST"),
+        user=os.environ.get("DB_USER"),
+        password=os.environ.get("DB_PASS"),
+        database=os.environ.get("DB_NAME"),
+        port=int(os.environ.get("DB_PORT", 3306)),
+        connection_timeout=5
     )
 
 @app.route('/')
@@ -47,5 +50,6 @@ def eliminar_producto():
     cursor.close()
     conn.close()
     return jsonify(resultados)
+
 
 
